@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CoTeSy Community Assist | Stockvel & Funeral Group Management</title>
+  <meta name="description" content="CoTeSy Community Assist helps stockvels and funeral assist groups manage contributions, track payments, send reports, and issue receipts." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card:#121a33;
+      --card2:#0f1730;
+      --text:#e9eeff;
+      --muted:#b7c0e6;
+      --line:rgba(255,255,255,.10);
+      --accent:#4f8cff;
+      --accent2:#22c55e;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --radius:18px;
+      --max:1120px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(900px 500px at 15% 10%, rgba(79,140,255,.22), transparent 60%),
+        radial-gradient(700px 450px at 85% 20%, rgba(34,197,94,.18), transparent 55%),
+        radial-gradient(700px 600px at 50% 100%, rgba(255,255,255,.06), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:0 20px}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background:rgba(11,16,32,.72);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:16px;
+    }
+    .brand{display:flex; gap:12px; align-items:center}
+    .logo{
+      width:40px; height:40px;
+      border-radius:12px;
+      background: linear-gradient(135deg, rgba(79,140,255,.95), rgba(34,197,94,.85));
+      box-shadow: 0 10px 30px rgba(79,140,255,.2);
+      display:grid; place-items:center;
+      font-weight:800;
+    }
+    .brand h1{font-size:14px; margin:0; letter-spacing:.2px}
+    .brand p{margin:0; font-size:12px; color:var(--muted)}
+    nav{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end}
+    nav a{
+      font-size:13px; color:var(--muted);
+      padding:8px 10px; border-radius:12px;
+    }
+    nav a:hover{background:rgba(255,255,255,.06); color:var(--text)}
+
+    .hero{padding:54px 0 26px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .hero-grid{grid-template-columns:1fr}
+    }
+    .hero h2{
+      font-size:42px; line-height:1.12; margin:0 0 14px;
+      letter-spacing:-.8px;
+    }
+    @media (max-width: 520px){ .hero h2{font-size:34px} }
+    .lead{color:var(--muted); font-size:16px; margin:0 0 18px}
+    .badges{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 22px}
+    .badge{
+      font-size:12px; color:var(--text);
+      padding:8px 10px; border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      border-radius:999px;
+    }
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 14px; border-radius:14px; font-weight:700; font-size:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      box-shadow:none;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn-primary{
+      background: linear-gradient(135deg, rgba(79,140,255,1), rgba(79,140,255,.75));
+      border-color: rgba(79,140,255,.55);
+      box-shadow: 0 18px 50px rgba(79,140,255,.25);
+    }
+    .btn-whatsapp{
+      background: linear-gradient(135deg, rgba(34,197,94,1), rgba(34,197,94,.72));
+      border-color: rgba(34,197,94,.55);
+      box-shadow: 0 18px 50px rgba(34,197,94,.20);
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(18,26,51,.96), rgba(15,23,48,.96));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero-card{padding:18px}
+    .mini-title{font-size:12px; color:var(--muted); margin:0 0 10px}
+    .stat{
+      display:flex; align-items:flex-start; gap:12px;
+      padding:12px; border-radius:14px; background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      margin-bottom:10px;
+    }
+    .dot{
+      width:12px; height:12px; border-radius:4px; margin-top:3px;
+      background: rgba(79,140,255,1);
+      box-shadow: 0 10px 30px rgba(79,140,255,.25);
+    }
+    .dot.green{background: rgba(34,197,94,1); box-shadow:0 10px 30px rgba(34,197,94,.20)}
+    .dot.gray{background: rgba(255,255,255,.55); box-shadow:none}
+    .stat h4{margin:0; font-size:14px}
+    .stat p{margin:2px 0 0; font-size:12px; color:var(--muted)}
+
+    section{padding:28px 0}
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+    .section-title h3{margin:0; font-size:22px}
+    .section-title p{margin:0; color:var(--muted); font-size:13px}
+
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 900px){ .grid-3{grid-template-columns:1fr} }
+
+    .feature{padding:16px}
+    .icon{
+      width:40px; height:40px; border-radius:14px;
+      background: rgba(79,140,255,.14);
+      border:1px solid rgba(79,140,255,.25);
+      display:grid; place-items:center;
+      margin-bottom:10px;
+      font-weight:800;
+      color: rgba(79,140,255,1);
+    }
+    .icon.green{
+      background: rgba(34,197,94,.14);
+      border:1px solid rgba(34,197,94,.25);
+      color: rgba(34,197,94,1);
+    }
+    .icon.gray{
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.85);
+    }
+    .feature h4{margin:0 0 6px; font-size:16px}
+    .feature p{margin:0; color:var(--muted); font-size:13px}
+
+    .steps{padding:16px}
+    .steps ol{margin:10px 0 0; padding-left:18px; color:var(--muted)}
+    .steps li{margin:8px 0}
+
+    .pricing{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 980px){ .pricing{grid-template-columns:1fr} }
+    .price{padding:18px}
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      font-size:12px; color:var(--muted);
+    }
+    .amount{font-size:30px; font-weight:900; margin:12px 0 6px}
+    .per{color:var(--muted); font-size:12px; margin:0 0 12px}
+    .price ul{margin:12px 0 0; padding-left:18px; color:var(--muted); font-size:13px}
+    .price li{margin:8px 0}
+    .highlight{
+      border:1px solid rgba(79,140,255,.40);
+      box-shadow: 0 24px 70px rgba(79,140,255,.18);
+    }
+
+    .contact{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:14px;
+    }
+    @media (max-width: 920px){ .contact{grid-template-columns:1fr} }
+    .contact .card{padding:18px}
+    .list{margin:10px 0 0; padding:0; list-style:none; color:var(--muted); font-size:13px}
+    .list li{padding:10px 0; border-top:1px solid var(--line)}
+    .list li:first-child{border-top:none; padding-top:0}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px; border-radius:999px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+      font-size:13px;
+    }
+    footer{
+      padding:28px 0 38px;
+      color:var(--muted);
+      border-top:1px solid var(--line);
+      margin-top:20px;
+      font-size:12px;
+    }
+    .small{font-size:12px; color:var(--muted)}
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="logo">C</div>
+        <div>
+          <h1>CoTeSy Community Assist</h1>
+          <p>Stockvel & Funeral Assist Group Management (Marketing)</p>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <h2>Make your Stockvel & Funeral Assist group easy to manage.</h2>
+          <p class="lead">
+            We help community groups record contributions, track who paid, send monthly reports, and issue receipts —
+            so your committee stays organised and members stay informed.
+          </p>
+
+          <div class="badges">
+            <span class="badge">✅ Payment tracking</span>
+            <span class="badge">🧾 Receipts</span>
+            <span class="badge">📄 Monthly & yearly reports</span>
+            <span class="badge">🔒 Secure records</span>
+          </div>
+
+          <div class="cta-row">
+            <!-- WhatsApp: replace number with yours in international format (e.g., 27723427049) -->
+            <a class="btn btn-whatsapp" href="https://wa.me/27723427049?text=Hi%20CoTeSy%20Community%20Assist%2C%20I%20want%20help%20managing%20our%20Stockvel%20or%20Funeral%20group." target="_blank" rel="noopener">
+              WhatsApp Us
+            </a>
+            <a class="btn btn-primary" href="#contact">Get a Quote</a>
+            <a class="btn" href="#services">See Services</a>
+          </div>
+
+          <p class="small" style="margin-top:12px;">
+            Based in South Africa • Community-friendly pricing • Support for small & large groups
+          </p>
+        </div>
+
+        <aside class="card hero-card">
+          <p class="mini-title">What you get</p>
+
+          <div class="stat">
+            <span class="dot"></span>
+            <div>
+              <h4>Clear member records</h4>
+              <p>Track members, monthly contributions, balances, and notes.</p>
+            </div>
+          </div>
+
+          <div class="stat">
+            <span class="dot green"></span>
+            <div>
+              <h4>Monthly report summary</h4>
+              <p>See who paid, who didn’t, total collected, and outstanding amounts.</p>
+            </div>
+          </div>
+
+          <div class="stat" style="margin-bottom:0;">
+            <span class="dot gray"></span>
+            <div>
+              <h4>Receipts & proof of payment</h4>
+              <p>Issue simple receipts that members can keep for their records.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-title">
+          <h3>Services</h3>
+          <p>Everything you need for smooth community group management</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card feature">
+            <div class="icon">₿</div>
+            <h4>Contribution Recording</h4>
+            <p>Capture monthly payments, dates, amounts, and member details in a clean system.</p>
+          </div>
+
+          <div class="card feature">
+            <div class="icon green">✓</div>
+            <h4>Paid / Not Paid Tracking</h4>
+            <p>Instant view of who paid this month, who is behind, and what is outstanding.</p>
+          </div>
+
+          <div class="card feature">
+            <div class="icon gray">📄</div>
+            <h4>Reports & Summaries</h4>
+            <p>Monthly and yearly reports for committee meetings and member transparency.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="container">
+        <div class="section-title">
+          <h3>How it works</h3>
+          <p>Simple process from setup to monthly reporting</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card steps">
+            <div class="icon">1</div>
+            <h4>We register members</h4>
+            <ol>
+              <li>Capture names and contacts</li>
+              <li>Set monthly contribution amount</li>
+              <li>Agree on rules and reporting</li>
+            </ol>
+          </div>
+
+          <div class="card steps">
+            <div class="icon green">2</div>
+            <h4>We record payments monthly</h4>
+            <ol>
+              <li>Update who paid and when</li>
+              <li>Store proof of payment notes</li>
+              <li>Issue receipts if needed</li>
+            </ol>
+          </div>
+
+          <div class="card steps">
+            <div class="icon gray">3</div>
+            <h4>We send reports</h4>
+            <ol>
+              <li>Monthly report (paid/not paid)</li>
+              <li>Total collected vs outstanding</li>
+              <li>Year-end summary</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="container">
+        <div class="section-title">
+          <h3>Pricing</h3>
+          <p>Choose a plan that fits your group size</p>
+        </div>
+
+        <div class="pricing">
+          <div class="card price">
+            <span class="tag">Starter</span>
+            <div class="amount">R199</div>
+            <p class="per">per month • small groups</p>
+            <ul>
+              <li>Up to 30 members</li>
+              <li>Monthly payment tracking</li>
+              <li>Basic monthly report</li>
+              <li>Email/WhatsApp support</li>
+            </ul>
+          </div>
+
+          <div class="card price highlight">
+            <span class="tag">Popular</span>
+            <div class="amount">R349</div>
+            <p class="per">per month • growing groups</p>
+            <ul>
+              <li>Up to 80 members</li>
+              <li>Receipts on request</li>
+              <li>Detailed monthly report</li>
+              <li>Quarterly summary</li>
+            </ul>
+          </div>
+
+          <div class="card price">
+            <span class="tag">Custom</span>
+            <div class="amount">Quote</div>
+            <p class="per">for large groups</p>
+            <ul>
+              <li>80+ members</li>
+              <li>Year-end reports</li>
+              <li>Dedicated support</li>
+              <li>Custom fields / rules</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="small" style="margin-top:10px;">
+          *Pricing is a sample for advertising — adjust to your real prices.
+        </p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-title">
+          <h3>Contact</h3>
+          <p>Let’s set up your group records and monthly reporting</p>
+        </div>
+
+        <div class="contact">
+          <div class="card">
+            <h4 style="margin:0 0 6px;">Talk to us</h4>
+            <p class="small" style="margin:0 0 12px;">
+              Share your group name, number of members, and monthly contribution amount — we’ll respond quickly.
+            </p>
+
+            <div class="cta-row">
+              <a class="btn btn-whatsapp" href="https://wa.me/27723427049?text=Hi%20CoTeSy%20Community%20Assist%2C%20please%20contact%20me%20about%20Stockvel%20or%20Funeral%20group%20management." target="_blank" rel="noopener">
+                WhatsApp: 072 342 7049
+              </a>
+              <a class="btn btn-primary" href="mailto:info@cotesy.co.za?subject=CoTeSy%20Community%20Assist%20Enquiry">
+                Email Us
+              </a>
+            </div>
+
+            <ul class="list">
+              <li><strong>Service Area:</strong> South Africa (remote support available)</li>
+              <li><strong>Business:</strong> CoTeSy IT Clinic / CoTeSy Community Assist</li>
+              <li><strong>What we do:</strong> Marketing site + community admin assistance</li>
+            </ul>
+
+            <p class="small" style="margin:10px 0 0;">
+              Note: This website advertises services only and does not collect payments online.
+            </p>
+          </div>
+
+          <div class="card">
+            <h4 style="margin:0 0 6px;">Quick message template</h4>
+            <p class="small" style="margin:0 0 12px;">Copy & paste to WhatsApp:</p>
+
+            <div class="pill" style="display:block; white-space:pre-wrap; line-height:1.6;">
+Hi CoTeSy Community Assist,
+We are a (Stockvel/Funeral Assist) group with ___ members.
+Monthly contribution is R___.
+We want payment tracking, receipts, and monthly reports.
+Please send us pricing and steps to start.
+            </div>
+
+            <p class="small" style="margin-top:12px;">
+              Tip: Replace the blanks, then click WhatsApp.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+          <div>© <span id="y"></span> CoTeSy Community Assist. All rights reserved.</div>
+          <div>Built for GitHub Pages • One-page marketing site</div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
