@@ -3,144 +3,245 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Collen M| Community Stockvel & Funeral Groups Management</title>
-  <meta name="description" content="Collen M helps stockvels and funeral assist groups manage contributions, track payments, send reports, and issue receipts." />
+  <title>Collen M | Stockvel & Funeral Groups Management</title>
+  <meta name="description" content="Collen M helps Stockvels and Funeral Assist groups manage contributions, track payments, send reports, and issue receipts." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#0b1020;
-      --card:#121a33;
-      --card2:#0f1730;
-      --text:#e9eeff;
-      --muted:#b7c0e6;
-      --line:rgba(255,255,255,.10);
-      --accent:#4f8cff;
-      --accent2:#22c55e;
-      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --bg0:#070b16;
+      --bg1:#0b1228;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.08);
+      --line: rgba(255,255,255,.12);
+      --text:#eef2ff;
+      --muted:#b9c3e8;
+
+      --brand:#2b7cff;
+      --brand2:#19c37d;
+      --warn:#fbbf24;
+
       --radius:18px;
-      --max:1120px;
+      --max:1160px;
+
+      --shadow: 0 24px 80px rgba(0,0,0,.38);
+      --shadow2: 0 18px 55px rgba(0,0,0,.28);
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:
-        radial-gradient(900px 500px at 15% 10%, rgba(79,140,255,.22), transparent 60%),
-        radial-gradient(700px 450px at 85% 20%, rgba(34,197,94,.18), transparent 55%),
-        radial-gradient(700px 600px at 50% 100%, rgba(255,255,255,.06), transparent 60%),
-        var(--bg);
       color:var(--text);
       line-height:1.55;
+
+      background:
+        radial-gradient(900px 500px at 12% 12%, rgba(43,124,255,.28), transparent 60%),
+        radial-gradient(700px 520px at 88% 18%, rgba(25,195,125,.20), transparent 60%),
+        radial-gradient(700px 600px at 50% 110%, rgba(255,255,255,.06), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
     }
+
     a{color:inherit; text-decoration:none}
     .container{max-width:var(--max); margin:0 auto; padding:0 20px}
+
+    /* Topbar */
     .topbar{
       position:sticky; top:0; z-index:50;
-      background:rgba(11,16,32,.72);
-      backdrop-filter: blur(10px);
+      background:rgba(7,11,22,.62);
+      backdrop-filter: blur(12px);
       border-bottom:1px solid var(--line);
     }
     .topbar-inner{
       display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0;
-      gap:16px;
+      gap:14px;
+      padding:12px 0;
     }
-    .brand{display:flex; gap:12px; align-items:center}
-    .logo{
-      width:40px; height:40px;
-      border-radius:12px;
-      background: linear-gradient(135deg, rgba(79,140,255,.95), rgba(34,197,94,.85));
-      box-shadow: 0 10px 30px rgba(79,140,255,.2);
-      display:grid; place-items:center;
-      font-weight:800;
-    }
-    .brand h1{font-size:14px; margin:0; letter-spacing:.2px}
-    .brand p{margin:0; font-size:12px; color:var(--muted)}
-    nav{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end}
-    nav a{
-      font-size:13px; color:var(--muted);
-      padding:8px 10px; border-radius:12px;
-    }
-    nav a:hover{background:rgba(255,255,255,.06); color:var(--text)}
 
-    .hero{padding:54px 0 26px}
+    .brand{
+      display:flex; align-items:center; gap:12px; min-width: 230px;
+    }
+    .logo{
+      width:42px; height:42px; border-radius:14px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, rgba(43,124,255,1), rgba(25,195,125,.92));
+      box-shadow: 0 18px 50px rgba(43,124,255,.25);
+      font-weight:900;
+      letter-spacing:.6px;
+    }
+    .brand-title{display:flex; flex-direction:column; gap:2px}
+    .brand-title strong{font-size:13px}
+    .brand-title span{font-size:12px; color:var(--muted)}
+
+    nav{
+      display:flex; align-items:center; gap:6px;
+      flex-wrap:wrap; justify-content:flex-end;
+    }
+    .navlink{
+      font-size:13px; color:var(--muted);
+      padding:9px 10px; border-radius:12px;
+      border:1px solid transparent;
+    }
+    .navlink:hover{
+      background:rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.10);
+      color:var(--text);
+    }
+
+    .nav-cta{
+      margin-left:6px;
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px; border-radius:14px;
+      border:1px solid rgba(43,124,255,.45);
+      background: linear-gradient(135deg, rgba(43,124,255,1), rgba(43,124,255,.72));
+      box-shadow: 0 18px 55px rgba(43,124,255,.18);
+      font-weight:800; font-size:13px;
+    }
+    .nav-cta:hover{transform: translateY(-1px)}
+
+    /* Hero */
+    .hero{padding:56px 0 22px}
     .hero-grid{
       display:grid;
-      grid-template-columns: 1.12fr .88fr;
-      gap:22px;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
       align-items:stretch;
     }
-    @media (max-width: 920px){
-      .hero-grid{grid-template-columns:1fr}
-    }
-    .hero h2{
-      font-size:42px; line-height:1.12; margin:0 0 14px;
-      letter-spacing:-.8px;
-    }
-    @media (max-width: 520px){ .hero h2{font-size:34px} }
-    .lead{color:var(--muted); font-size:16px; margin:0 0 18px}
-    .badges{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 22px}
-    .badge{
-      font-size:12px; color:var(--text);
-      padding:8px 10px; border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
+    @media (max-width: 940px){ .hero-grid{grid-template-columns:1fr} }
+
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 10px;
       border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+      font-size:12px;
     }
-    .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px}
+    .pulse{
+      width:10px; height:10px; border-radius:50%;
+      background: var(--brand2);
+      box-shadow: 0 0 0 0 rgba(25,195,125,.55);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse{
+      0%{ box-shadow: 0 0 0 0 rgba(25,195,125,.55); }
+      70%{ box-shadow: 0 0 0 12px rgba(25,195,125,0); }
+      100%{ box-shadow: 0 0 0 0 rgba(25,195,125,0); }
+    }
+
+    h1{
+      margin:14px 0 10px;
+      font-size:46px;
+      line-height:1.08;
+      letter-spacing:-1px;
+    }
+    @media (max-width:520px){ h1{font-size:36px} }
+
+    .lead{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:16px;
+      max-width: 62ch;
+    }
+
+    .cta-row{
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top:12px;
+    }
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      padding:12px 14px; border-radius:14px; font-weight:700; font-size:14px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.06);
-      box-shadow:none;
+      padding:12px 14px; border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      font-weight:800; font-size:14px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      box-shadow: none;
     }
-    .btn:hover{transform: translateY(-1px)}
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08)}
     .btn-primary{
-      background: linear-gradient(135deg, rgba(79,140,255,1), rgba(79,140,255,.75));
-      border-color: rgba(79,140,255,.55);
-      box-shadow: 0 18px 50px rgba(79,140,255,.25);
+      border-color: rgba(43,124,255,.55);
+      background: linear-gradient(135deg, rgba(43,124,255,1), rgba(43,124,255,.72));
+      box-shadow: 0 20px 60px rgba(43,124,255,.22);
     }
     .btn-whatsapp{
-      background: linear-gradient(135deg, rgba(34,197,94,1), rgba(34,197,94,.72));
-      border-color: rgba(34,197,94,.55);
-      box-shadow: 0 18px 50px rgba(34,197,94,.20);
+      border-color: rgba(25,195,125,.55);
+      background: linear-gradient(135deg, rgba(25,195,125,1), rgba(25,195,125,.70));
+      box-shadow: 0 20px 60px rgba(25,195,125,.18);
+    }
+    .btn-outline{
+      border-color: rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
     }
 
-    .card{
-      background: linear-gradient(180deg, rgba(18,26,51,.96), rgba(15,23,48,.96));
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow: var(--shadow);
+    .trust{
+      margin-top:12px;
+      display:flex; gap:10px; flex-wrap:wrap;
+      color:var(--muted);
+      font-size:12px;
     }
-    .hero-card{padding:18px}
-    .mini-title{font-size:12px; color:var(--muted); margin:0 0 10px}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+
+    /* Cards */
+    .card{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+      box-shadow: var(--shadow2);
+    }
+
+    .hero-card{padding:16px; position:relative; overflow:hidden}
+    .hero-card:before{
+      content:"";
+      position:absolute; inset:-50px;
+      background:
+        radial-gradient(360px 220px at 20% 20%, rgba(43,124,255,.22), transparent 60%),
+        radial-gradient(320px 220px at 80% 35%, rgba(25,195,125,.18), transparent 60%);
+      filter: blur(12px);
+      opacity:.8;
+      pointer-events:none;
+    }
+    .hero-card > *{position:relative}
+    .hero-card h3{margin:0 0 8px; font-size:16px}
+    .mini{margin:0 0 12px; color:var(--muted); font-size:12px}
+
     .stat{
-      display:flex; align-items:flex-start; gap:12px;
-      padding:12px; border-radius:14px; background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.08);
+      display:flex; gap:12px; align-items:flex-start;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
       margin-bottom:10px;
     }
-    .dot{
-      width:12px; height:12px; border-radius:4px; margin-top:3px;
-      background: rgba(79,140,255,1);
-      box-shadow: 0 10px 30px rgba(79,140,255,.25);
+    .stat:last-child{margin-bottom:0}
+    .badge-ico{
+      width:36px; height:36px; border-radius:14px;
+      display:grid; place-items:center;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
     }
-    .dot.green{background: rgba(34,197,94,1); box-shadow:0 10px 30px rgba(34,197,94,.20)}
-    .dot.gray{background: rgba(255,255,255,.55); box-shadow:none}
     .stat h4{margin:0; font-size:14px}
-    .stat p{margin:2px 0 0; font-size:12px; color:var(--muted)}
+    .stat p{margin:2px 0 0; color:var(--muted); font-size:12px}
 
+    /* Sections */
     section{padding:28px 0}
     .section-title{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
       margin-bottom:14px;
+      flex-wrap:wrap;
     }
-    .section-title h3{margin:0; font-size:22px}
+    .section-title h2{margin:0; font-size:22px}
     .section-title p{margin:0; color:var(--muted); font-size:13px}
 
     .grid-3{
@@ -148,241 +249,319 @@
       grid-template-columns: repeat(3, 1fr);
       gap:14px;
     }
-    @media (max-width: 900px){ .grid-3{grid-template-columns:1fr} }
+    @media (max-width: 980px){ .grid-3{grid-template-columns:1fr} }
 
     .feature{padding:16px}
-    .icon{
-      width:40px; height:40px; border-radius:14px;
-      background: rgba(79,140,255,.14);
-      border:1px solid rgba(79,140,255,.25);
-      display:grid; place-items:center;
-      margin-bottom:10px;
-      font-weight:800;
-      color: rgba(79,140,255,1);
-    }
-    .icon.green{
-      background: rgba(34,197,94,.14);
-      border:1px solid rgba(34,197,94,.25);
-      color: rgba(34,197,94,1);
-    }
-    .icon.gray{
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.85);
-    }
-    .feature h4{margin:0 0 6px; font-size:16px}
+    .feature h3{margin:0 0 6px; font-size:16px}
     .feature p{margin:0; color:var(--muted); font-size:13px}
 
-    .steps{padding:16px}
-    .steps ol{margin:10px 0 0; padding-left:18px; color:var(--muted)}
-    .steps li{margin:8px 0}
+    .iconbox{
+      width:44px; height:44px; border-radius:16px;
+      display:grid; place-items:center;
+      margin-bottom:10px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+    }
 
+    /* Pricing */
     .pricing{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap:14px;
     }
     @media (max-width: 980px){ .pricing{grid-template-columns:1fr} }
-    .price{padding:18px}
+    .price{padding:18px; position:relative; overflow:hidden}
+    .price:before{
+      content:"";
+      position:absolute; inset:-60px;
+      background:
+        radial-gradient(340px 240px at 25% 15%, rgba(43,124,255,.18), transparent 60%),
+        radial-gradient(340px 240px at 85% 35%, rgba(25,195,125,.16), transparent 60%);
+      filter: blur(16px);
+      opacity:.75;
+      pointer-events:none;
+    }
+    .price > *{position:relative}
+
     .tag{
       display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.04);
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
       font-size:12px; color:var(--muted);
+      font-weight:700;
     }
-    .amount{font-size:30px; font-weight:900; margin:12px 0 6px}
-    .per{color:var(--muted); font-size:12px; margin:0 0 12px}
+    .amount{font-size:34px; font-weight:900; margin:12px 0 4px}
+    .per{margin:0 0 12px; color:var(--muted); font-size:12px}
     .price ul{margin:12px 0 0; padding-left:18px; color:var(--muted); font-size:13px}
     .price li{margin:8px 0}
     .highlight{
-      border:1px solid rgba(79,140,255,.40);
-      box-shadow: 0 24px 70px rgba(79,140,255,.18);
+      border-color: rgba(43,124,255,.45);
+      box-shadow: var(--shadow);
+    }
+    .highlight .tag{
+      border-color: rgba(43,124,255,.35);
+      color: var(--text);
+      background: rgba(43,124,255,.12);
     }
 
+    /* Contact */
     .contact{
       display:grid;
       grid-template-columns: 1.1fr .9fr;
       gap:14px;
     }
-    @media (max-width: 920px){ .contact{grid-template-columns:1fr} }
+    @media (max-width: 980px){ .contact{grid-template-columns:1fr} }
     .contact .card{padding:18px}
-    .list{margin:10px 0 0; padding:0; list-style:none; color:var(--muted); font-size:13px}
-    .list li{padding:10px 0; border-top:1px solid var(--line)}
-    .list li:first-child{border-top:none; padding-top:0}
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 12px; border-radius:999px;
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.10);
+    .list{
+      margin:12px 0 0; padding:0;
+      list-style:none;
+      color:var(--muted);
       font-size:13px;
     }
-    footer{
-      padding:28px 0 38px;
-      color:var(--muted);
-      border-top:1px solid var(--line);
-      margin-top:20px;
-      font-size:12px;
+    .list li{
+      padding:10px 0;
+      border-top:1px solid rgba(255,255,255,.10);
     }
-    .small{font-size:12px; color:var(--muted)}
+    .list li:first-child{border-top:none; padding-top:0}
+
+    .pill{
+      display:block;
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.14);
+      white-space:pre-wrap;
+      color: var(--muted);
+      font-size:13px;
+      line-height:1.7;
+    }
+
+    footer{
+      padding:26px 0 34px;
+      border-top:1px solid rgba(255,255,255,.10);
+      color:var(--muted);
+      font-size:12px;
+      margin-top:20px;
+    }
+
+    /* Small helpers */
+    .muted{color:var(--muted)}
+    .split{
+      display:flex; justify-content:space-between; gap:10px;
+      flex-wrap:wrap;
+    }
+
+    /* SVG icons color */
+    .svg{width:22px; height:22px; display:block}
   </style>
 </head>
 
 <body>
+  <!-- Top Bar -->
   <header class="topbar">
     <div class="container topbar-inner">
       <div class="brand">
-        <div class="logo">C</div>
-        <div>
-          <h1>Collen M</h1>
-          <p>Community Stockvel & Funeral Assist Groups Management </p>
+        <div class="logo">CM</div>
+        <div class="brand-title">
+          <strong>Collen M</strong>
+          <span>Stockvel & Funeral Groups books Management</span>
         </div>
       </div>
 
       <nav>
-        <a href="#services">Services</a>
-        <a href="#how">How it works</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#contact">Contact</a>
+        <a class="navlink" href="#services">Services</a>
+        <a class="navlink" href="#how">How it works</a>
+        <a class="navlink" href="#pricing">Pricing</a>
+        <a class="navlink" href="#contact">Contact</a>
+        <a class="nav-cta" href="#contact">Get Started</a>
       </nav>
     </div>
   </header>
 
   <main>
+    <!-- Hero -->
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <h2>Make your Stockvel & Funeral Assist group easy to manage.</h2>
+          <div class="kicker">
+            <span class="pulse"></span>
+            Trusted record-keeping for community groups • Simple • Clear • Professional
+          </div>
+
+          <h1>Manage your Stockvel & Funeral Assist group with confidence.</h1>
+
           <p class="lead">
-            We help community groups record contributions, track who paid, send monthly reports, and issue receipts —
+            We help community groups record contributions, track who paid, issue receipts, and send monthly or yearly reports —
             so your committee stays organised and members stay informed.
           </p>
 
-          <div class="badges">
-            <span class="badge">✅ Payment tracking</span>
-            <span class="badge">🧾 Receipts</span>
-            <span class="badge">📄 Monthly & yearly reports</span>
-            <span class="badge">🔒 Secure records</span>
-          </div>
-
           <div class="cta-row">
-            <!-- WhatsApp: replace number with yours in international format (e.g., 27723427049) -->
-            <a class="btn btn-whatsapp" href="https://wa.me/27723427049?text=Hi%20CoTeSy%20Community%20Assist%2C%20I%20want%20help%20managing%20our%20Stockvel%20or%20Funeral%20group." target="_blank" rel="noopener">
+            <!-- Replace number (international format) -->
+            <a class="btn btn-whatsapp" href="https://wa.me/27723427049?text=Hi%20Collen%20M%2C%20please%20contact%20me%20about%20Stockvel%2FFuneral%20group%20management." target="_blank" rel="noopener">
               WhatsApp Us
             </a>
-            <a class="btn btn-primary" href="#contact">Get a Quote</a>
-            <a class="btn" href="#services">See Services</a>
+            <a class="btn btn-primary" href="#pricing">View Pricing</a>
+            <a class="btn btn-outline" href="#services">See Services</a>
           </div>
 
-          <p class="small" style="margin-top:12px;">
-            Based in Welverdiend Bushbuckridge • Community-friendly pricing • Support for small & large groups
+          <div class="trust">
+            <span class="chip">✅ Payment tracking</span>
+            <span class="chip">🧾 Receipts</span>
+            <span class="chip">📄 Monthly & yearly reports</span>
+            <span class="chip">🔒 Secure records</span>
+          </div>
+
+          <p class="muted" style="margin:12px 0 0; font-size:12px;">
+            Based in Welverdiend Bushbuckridge • Support across South Africa (remote available)
           </p>
         </div>
 
         <aside class="card hero-card">
-          <p class="mini-title">What you get</p>
+          <h3>What you get</h3>
+          <p class="mini">A clean system that makes committee work easier.</p>
 
           <div class="stat">
-            <span class="dot"></span>
+            <div class="badge-ico" aria-hidden="true">
+              <!-- ledger icon -->
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M7 4h10a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3Z" stroke="rgba(255,255,255,.85)" stroke-width="1.6"/>
+                <path d="M8 8h8M8 12h8M8 16h6" stroke="rgba(255,255,255,.65)" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </div>
             <div>
               <h4>Clear member records</h4>
-              <p>Track members, monthly contributions, balances, and notes.</p>
+              <p>Track members, contributions, balances, and notes.</p>
             </div>
           </div>
 
           <div class="stat">
-            <span class="dot green"></span>
+            <div class="badge-ico" aria-hidden="true">
+              <!-- report icon -->
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="rgba(255,255,255,.85)" stroke-width="1.6"/>
+                <path d="M14 3v3h3" stroke="rgba(255,255,255,.65)" stroke-width="1.6"/>
+                <path d="M8 11h8M8 15h8M8 19h6" stroke="rgba(255,255,255,.65)" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </div>
             <div>
               <h4>Monthly report summary</h4>
-              <p>See who paid, who didn’t, total collected, and outstanding amounts.</p>
+              <p>Paid/not paid, totals collected, outstanding amounts.</p>
             </div>
           </div>
 
-          <div class="stat" style="margin-bottom:0;">
-            <span class="dot gray"></span>
-            <div>
-              <h4>Receipts & proof of payment</h4>
-              <p>Issue simple receipts that members can keep for their records.</p>
+          <div class="stat">
+            <div class="badge-ico" aria-hidden="true">
+              <!-- receipt icon -->
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M7 3h10v18l-2-1-2 1-2-1-2 1-2-1-2 1V3Z" stroke="rgba(255,255,255,.85)" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M9 8h6M9 12h6M9 16h4" stroke="rgba(255,255,255,.65)" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
             </div>
+            <div>
+              <h4>Receipts & proof</h4>
+              <p>Issue simple receipts members can keep for records.</p>
+            </div>
+          </div>
+
+          <div class="muted" style="margin-top:12px; font-size:12px;">
+            Note: This site advertises services only and does not collect payments online.
           </div>
         </aside>
       </div>
     </section>
 
+    <!-- Services -->
     <section id="services">
       <div class="container">
         <div class="section-title">
-          <h3>Services</h3>
+          <h2>Services</h2>
           <p>Everything you need for smooth community group management</p>
         </div>
 
         <div class="grid-3">
           <div class="card feature">
-            <div class="icon">₿</div>
-            <h4>Contribution Recording</h4>
+            <div class="iconbox" aria-hidden="true">
+              <!-- Stockvel icon: coin + people -->
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M9 14a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z" stroke="rgba(255,255,255,.85)" stroke-width="1.6"/>
+                <path d="M15 14a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z" stroke="rgba(255,255,255,.65)" stroke-width="1.6"/>
+                <path d="M4 21a5 5 0 0 1 10 0" stroke="rgba(255,255,255,.85)" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M10 21a5 5 0 0 1 10 0" stroke="rgba(255,255,255,.65)" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Contribution recording</h3>
             <p>Capture monthly payments, dates, amounts, and member details in a clean system.</p>
           </div>
 
           <div class="card feature">
-            <div class="icon green">✓</div>
-            <h4>Paid / Not Paid Tracking</h4>
+            <div class="iconbox" aria-hidden="true">
+              <!-- check icon -->
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M20 6 9 17l-5-5" stroke="rgba(25,195,125,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Paid / Not paid tracking</h3>
             <p>Instant view of who paid this month, who is behind, and what is outstanding.</p>
           </div>
 
           <div class="card feature">
-            <div class="icon gray">📄</div>
-            <h4>Reports & Summaries</h4>
+            <div class="iconbox" aria-hidden="true">
+              <!-- funeral assist icon: shield/heart -->
+              <svg class="svg" viewBox="0 0 24 24" fill="none">
+                <path d="M12 22s8-4 8-10V6l-8-3-8 3v6c0 6 8 10 8 10Z" stroke="rgba(43,124,255,.95)" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M12 16s-3-2-3-4a2 2 0 0 1 3-1 2 2 0 0 1 3 1c0 2-3 4-3 4Z" fill="rgba(43,124,255,.25)" stroke="rgba(255,255,255,.65)" stroke-width="1.2"/>
+              </svg>
+            </div>
+            <h3>Reports & summaries</h3>
             <p>Monthly and yearly reports for committee meetings and member transparency.</p>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- How it works -->
     <section id="how">
       <div class="container">
         <div class="section-title">
-          <h3>How it works</h3>
+          <h2>How it works</h2>
           <p>Simple process from setup to monthly reporting</p>
         </div>
 
         <div class="grid-3">
-          <div class="card steps">
-            <div class="icon">1</div>
-            <h4>We register members</h4>
-            <ol>
-              <li>Capture names and contacts</li>
-              <li>Set monthly contribution amount</li>
-              <li>Agree on rules and reporting</li>
-            </ol>
+          <div class="card feature">
+            <div class="iconbox" aria-hidden="true">
+              <span style="font-weight:900;">1</span>
+            </div>
+            <h3>Register the group</h3>
+            <p>We capture member list, contribution amount, rules, and reporting needs.</p>
           </div>
 
-          <div class="card steps">
-            <div class="icon green">2</div>
-            <h4>We record payments monthly</h4>
-            <ol>
-              <li>Update who paid and when</li>
-              <li>Store proof of payment notes</li>
-              <li>Issue receipts if needed</li>
-            </ol>
+          <div class="card feature">
+            <div class="iconbox" aria-hidden="true">
+              <span style="font-weight:900; color: rgba(25,195,125,.95)">2</span>
+            </div>
+            <h3>Record payments monthly</h3>
+            <p>Update who paid, dates, amounts, and notes. Receipts available on request.</p>
           </div>
 
-          <div class="card steps">
-            <div class="icon gray">3</div>
-            <h4>We send reports</h4>
-            <ol>
-              <li>Monthly report (paid/not paid)</li>
-              <li>Total collected vs outstanding</li>
-              <li>Year-end summary</li>
-            </ol>
+          <div class="card feature">
+            <div class="iconbox" aria-hidden="true">
+              <span style="font-weight:900; color: rgba(255,255,255,.85)">3</span>
+            </div>
+            <h3>Send reports</h3>
+            <p>Monthly paid/not paid report, totals collected, outstanding amounts, and year-end summary.</p>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Pricing -->
     <section id="pricing">
       <div class="container">
         <div class="section-title">
-          <h3>Pricing</h3>
+          <h2>Pricing</h2>
           <p>Choose a plan that fits your group size</p>
         </div>
 
@@ -393,10 +572,13 @@
             <p class="per">per month • small groups</p>
             <ul>
               <li>Up to 30 members</li>
-              <li>Monthly payment tracking</li>
+              <li>Monthly tracking</li>
               <li>Basic monthly report</li>
-              <li>Email/WhatsApp support</li>
+              <li>WhatsApp support</li>
             </ul>
+            <div style="margin-top:14px;">
+              <a class="btn btn-outline" href="#contact">Choose Starter</a>
+            </div>
           </div>
 
           <div class="card price highlight">
@@ -409,46 +591,53 @@
               <li>Detailed monthly report</li>
               <li>Quarterly summary</li>
             </ul>
+            <div style="margin-top:14px;">
+              <a class="btn btn-primary" href="#contact">Choose Popular</a>
+            </div>
           </div>
 
           <div class="card price">
-            <span class="tag">R350</span>
+            <span class="tag">Large Groups</span>
             <div class="amount">R350</div>
-            <p class="per">for large groups</p>
+            <p class="per">per month • 80+ members</p>
             <ul>
               <li>80+ members</li>
               <li>Year-end reports</li>
               <li>Dedicated support</li>
-              <li>Custom fields / rules</li>
+              <li>Custom rules/fields</li>
             </ul>
+            <div style="margin-top:14px;">
+              <a class="btn btn-outline" href="#contact">Choose Large</a>
+            </div>
           </div>
         </div>
 
-        <p class="small" style="margin-top:10px;">
-          
+        <p class="muted" style="margin-top:10px; font-size:12px;">
+          Need something custom (e.g., multiple groups, special reporting)? Contact us for a quote.
         </p>
       </div>
     </section>
 
+    <!-- Contact -->
     <section id="contact">
       <div class="container">
         <div class="section-title">
-          <h3>Contact</h3>
-          <p>Let’s set up your group records and monthly reporting</p>
+          <h2>Contact</h2>
+          <p>Let’s set up your group records and reporting</p>
         </div>
 
         <div class="contact">
           <div class="card">
-            <h4 style="margin:0 0 6px;">Talk to us</h4>
-            <p class="small" style="margin:0 0 12px;">
+            <h3 style="margin:0 0 6px; font-size:16px;">Talk to us</h3>
+            <p class="muted" style="margin:0 0 12px; font-size:13px;">
               Share your group name, number of members, and monthly contribution amount — we’ll respond quickly.
             </p>
 
             <div class="cta-row">
-              <a class="btn btn-whatsapp" href="https://wa.me/27723427049?text=Hi%20CoTeSy%20Community%20Assist%2C%20please%20contact%20me%20about%20Stockvel%20or%20Funeral%20group%20management." target="_blank" rel="noopener">
+              <a class="btn btn-whatsapp" href="https://wa.me/27723427049?text=Hi%20Collen%20M%2C%20We%20want%20Stockvel%2FFuneral%20group%20management%20support.%20Please%20contact%20me." target="_blank" rel="noopener">
                 WhatsApp: 072 342 7049
               </a>
-              <a class="btn btn-primary" href="mailto:mkansicc@gmail.com?subject=CollenM%20Community%20Assist%20Enquiry">
+              <a class="btn btn-primary" href="mailto:mkansicc@gmail.com?subject=Collen%20M%20Community%20Group%20Enquiry">
                 Email Us
               </a>
             </div>
@@ -456,19 +645,20 @@
             <ul class="list">
               <li><strong>Service Area:</strong> South Africa (remote support available)</li>
               <li><strong>Business:</strong> Collen M</li>
-              <li><strong>What we do:</strong> community groups admin assistance</li>
+              <li><strong>Focus:</strong> Stockvel & Funeral Assist group administration</li>
+              <li><strong>Delivery:</strong> Monthly tracking + reports + receipts (on request)</li>
             </ul>
 
-            <p class="small" style="margin:10px 0 0;">
+            <p class="muted" style="margin:10px 0 0; font-size:12px;">
               Note: This website advertises services only and does not collect payments online.
             </p>
           </div>
 
           <div class="card">
-            <h4 style="margin:0 0 6px;">Quick message template</h4>
-            <p class="small" style="margin:0 0 12px;">Copy & paste to WhatsApp:</p>
+            <h3 style="margin:0 0 6px; font-size:16px;">Quick message template</h3>
+            <p class="muted" style="margin:0 0 12px; font-size:13px;">Copy & paste to WhatsApp:</p>
 
-            <div class="pill" style="display:block; white-space:pre-wrap; line-height:1.6;">
+            <div class="pill" id="template">
 Hi Collen M,
 We are a (Stockvel/Funeral Assist) group with ___ members.
 Monthly contribution is R___.
@@ -476,8 +666,13 @@ We want payment tracking, receipts, and monthly reports.
 Please send us pricing and steps to start.
             </div>
 
-            <p class="small" style="margin-top:12px;">
-              Tip: Replace the blanks, then click WhatsApp.
+            <div class="cta-row" style="margin-top:12px;">
+              <button class="btn btn-outline" type="button" id="copyBtn">Copy template</button>
+              <a class="btn btn-primary" id="openWa" target="_blank" rel="noopener">Open WhatsApp with template</a>
+            </div>
+
+            <p class="muted" style="margin-top:12px; font-size:12px;">
+              Tip: Replace the blanks first, then click WhatsApp.
             </p>
           </div>
         </div>
@@ -485,18 +680,43 @@ Please send us pricing and steps to start.
     </section>
 
     <footer>
-      <div class="container">
-        <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;">
-          <div>© <span id="y"></span> Collen M. All rights reserved.</div>
-          <div>In life to help where I can : Collen M</div>
-        </div>
+      <div class="container split">
+        <div>© <span id="y"></span> Collen M. All rights reserved.</div>
+        <div>In life to help where I can : Collen M</div>
       </div>
     </footer>
   </main>
 
   <script>
+    // Footer year
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Copy template
+    const copyBtn = document.getElementById("copyBtn");
+    const template = document.getElementById("template").innerText.trim();
+
+    copyBtn.addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(template);
+        copyBtn.textContent = "Copied ✅";
+        setTimeout(() => (copyBtn.textContent = "Copy template"), 1500);
+      }catch(e){
+        // fallback
+        const ta = document.createElement("textarea");
+        ta.value = template;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        copyBtn.textContent = "Copied ✅";
+        setTimeout(() => (copyBtn.textContent = "Copy template"), 1500);
+      }
+    });
+
+    // WhatsApp template link
+    const waNumber = "27723427049"; // <-- change if needed
+    const openWa = document.getElementById("openWa");
+    openWa.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(template)}`;
   </script>
 </body>
 </html>
-
