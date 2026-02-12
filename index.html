@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -86,11 +86,13 @@
       font-size:13px; color:var(--muted);
       padding:9px 10px; border-radius:12px;
       border:1px solid transparent;
+      transition: background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
     }
     .navlink:hover{
       background:rgba(255,255,255,.06);
       border-color:rgba(255,255,255,.10);
       color:var(--text);
+      transform: translateY(-1px);
     }
 
     .nav-cta{
@@ -101,6 +103,7 @@
       background: linear-gradient(135deg, rgba(43,124,255,1), rgba(43,124,255,.72));
       box-shadow: 0 18px 55px rgba(43,124,255,.18);
       font-weight:800; font-size:13px;
+      transition: transform .15s ease;
     }
     .nav-cta:hover{transform: translateY(-1px)}
 
@@ -355,6 +358,93 @@
 
     /* SVG icons color */
     .svg{width:22px; height:22px; display:block}
+
+    /* ============================================================
+       Language Switch (top) — icon + animation (adds beauty only)
+       ============================================================ */
+    .lang-toggle{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      gap:0;
+      padding:4px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      box-shadow: 0 18px 50px rgba(0,0,0,.18);
+      margin-left:8px;
+      user-select:none;
+    }
+    .lang-toggle:before{
+      content:"";
+      position:absolute;
+      inset:4px auto 4px 4px;
+      width: calc(50% - 4px);
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(43,124,255,.95), rgba(43,124,255,.55));
+      box-shadow: 0 14px 45px rgba(43,124,255,.22);
+      transform: translateX(0);
+      transition: transform .22s cubic-bezier(.2,.9,.2,1);
+      pointer-events:none;
+    }
+    html[data-lang="ts"] .lang-toggle:before{
+      transform: translateX(100%);
+      background: linear-gradient(135deg, rgba(25,195,125,.95), rgba(25,195,125,.55));
+      box-shadow: 0 14px 45px rgba(25,195,125,.18);
+    }
+    .lang-btn{
+      position:relative;
+      z-index:1;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:0;
+      background:transparent;
+      color:var(--muted);
+      font-weight:800;
+      font-size:12px;
+      cursor:pointer;
+      transition: color .18s ease, transform .18s ease;
+      min-width: 86px;
+      justify-content:center;
+    }
+    .lang-btn:hover{transform: translateY(-1px); color: var(--text)}
+    html[data-lang="en"] .lang-btn[data-lang="en"],
+    html[data-lang="ts"] .lang-btn[data-lang="ts"]{ color: var(--text) }
+
+    .globe{
+      width:16px; height:16px; display:block;
+      filter: drop-shadow(0 10px 22px rgba(0,0,0,.35));
+      opacity:.95;
+      animation: globeFloat 3.2s ease-in-out infinite;
+    }
+    @keyframes globeFloat{
+      0%,100%{transform: translateY(0) rotate(0deg)}
+      50%{transform: translateY(-1.5px) rotate(3deg)}
+    }
+
+    /* language text swap helper */
+    .t{display:none}
+    html[data-lang="en"] .t[data-lang="en"]{display:inline}
+    html[data-lang="ts"] .t[data-lang="ts"]{display:inline}
+
+    /* block-level swaps */
+    .tb{display:none}
+    html[data-lang="en"] .tb[data-lang="en"]{display:block}
+    html[data-lang="ts"] .tb[data-lang="ts"]{display:block}
+
+    /* smooth fade when switching */
+    .lang-fade{
+      transition: opacity .18s ease, transform .18s ease;
+      opacity:1;
+      transform: translateY(0);
+    }
+    .lang-fade.is-switching{
+      opacity:.55;
+      transform: translateY(1px);
+    }
   </style>
 </head>
 
@@ -366,79 +456,159 @@
         <div class="logo">CM</div>
         <div class="brand-title">
           <strong>Collen M</strong>
-          <span>Stockvel & Funeral Groups books Management</span>
+          <span>
+            <span class="t" data-lang="en">Stockvel & Funeral Groups books Management</span>
+            <span class="t" data-lang="ts">Vulawuri bya tibuku ta Stockvel & Mintlawa ya Mfungho wa Xilahlo</span>
+          </span>
         </div>
       </div>
 
       <nav>
-        <a class="navlink" href="#services">Services</a>
-        <a class="navlink" href="#how">How it works</a>
-        <a class="navlink" href="#pricing">Pricing</a>
-        <a class="navlink" href="#contact">Contact</a>
-        <a class="nav-cta" href="#contact">Get Started</a>
+        <a class="navlink" href="#services">
+          <span class="t" data-lang="en">Services</span>
+          <span class="t" data-lang="ts">Vukorhokeri</span>
+        </a>
+        <a class="navlink" href="#how">
+          <span class="t" data-lang="en">How it works</span>
+          <span class="t" data-lang="ts">Ndlela leyi swi tirhaka ha yona</span>
+        </a>
+        <a class="navlink" href="#pricing">
+          <span class="t" data-lang="en">Pricing</span>
+          <span class="t" data-lang="ts">Tihakelo</span>
+        </a>
+        <a class="navlink" href="#contact">
+          <span class="t" data-lang="en">Contact</span>
+          <span class="t" data-lang="ts">Ku tihlanganisa</span>
+        </a>
+
+        <!-- Language switch (added only at the top) -->
+        <div class="lang-toggle" aria-label="Language switch">
+          <button class="lang-btn" type="button" data-lang="en" id="btnEn" title="Switch to English">
+            <svg class="globe" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z" stroke="rgba(255,255,255,.85)" stroke-width="1.6"/>
+              <path d="M2 12h20" stroke="rgba(255,255,255,.55)" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M12 2c3.5 3.2 3.5 16.8 0 20" stroke="rgba(255,255,255,.55)" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M12 2c-3.5 3.2-3.5 16.8 0 20" stroke="rgba(255,255,255,.55)" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            EN
+          </button>
+          <button class="lang-btn" type="button" data-lang="ts" id="btnTs" title="Switch to Xitsonga">
+            <svg class="globe" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10Z" stroke="rgba(255,255,255,.85)" stroke-width="1.6"/>
+              <path d="M2 12h20" stroke="rgba(255,255,255,.55)" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M12 2c3.5 3.2 3.5 16.8 0 20" stroke="rgba(255,255,255,.55)" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M12 2c-3.5 3.2-3.5 16.8 0 20" stroke="rgba(255,255,255,.55)" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            TS
+          </button>
+        </div>
+
+        <a class="nav-cta" href="#contact">
+          <span class="t" data-lang="en">Get Started</span>
+          <span class="t" data-lang="ts">Sungula</span>
+        </a>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main class="lang-fade" id="page">
     <!-- Hero -->
     <section class="hero">
       <div class="container hero-grid">
         <div>
           <div class="kicker">
             <span class="pulse"></span>
-            Trusted record-keeping for community groups • Simple • Clear • Professional
+            <span class="t" data-lang="en">Trusted record-keeping for community groups • Simple • Clear • Professional</span>
+            <span class="t" data-lang="ts">Ku hlayisa tinsuku ta tibuku lebyi tshembekaka eka mintlawa ya vaaki • Rhingeta • Ku twisiseka • Xiprofexionali</span>
           </div>
 
-          <h1>Manage your Stockvel & Funeral Assist group with confidence.</h1>
+          <h1>
+            <span class="t" data-lang="en">Manage your Stockvel & Funeral Assist group with confidence.</span>
+            <span class="t" data-lang="ts">Lawula Stockvel & Ntlawa wa Mfungho wa Xilahlo hi ku tshemba.</span>
+          </h1>
 
           <p class="lead">
-            We help community groups record contributions, track who paid, issue receipts, and send monthly or yearly reports —
-            so your committee stays organised and members stay informed.
+            <span class="t" data-lang="en">
+              We help community groups record contributions, track who paid, issue receipts, and send monthly or yearly reports —
+              so your committee stays organised and members stay informed.
+            </span>
+            <span class="t" data-lang="ts">
+              Hi pfuna mintlawa ya vaaki ku tsala minhlengo, ku landzelela loyi a hakeke, ku humesa tirhasiti, na ku rhumela swiviko swa n’hweti kumbe swa lembe —
+              leswaku komiti yi tshama yi lunghile naswona swirho swi tshama swi tivisiwe.
+            </span>
           </p>
 
           <div class="cta-row">
-            <!-- Replace number (international format) -->
-            <a class="btn btn-whatsapp" href="https://wa.me/27723427049?text=Hi%20Collen%20M%2C%20please%20contact%20me%20about%20Stockvel%2FFuneral%20group%20management." target="_blank" rel="noopener">
-              WhatsApp Us
+            <a class="btn btn-whatsapp" id="waHero" href="#" target="_blank" rel="noopener">
+              <span class="t" data-lang="en">WhatsApp Us</span>
+              <span class="t" data-lang="ts">WhatsApp Hina</span>
             </a>
-            <a class="btn btn-primary" href="#pricing">View Pricing</a>
-            <a class="btn btn-outline" href="#services">See Services</a>
+            <a class="btn btn-primary" href="#pricing">
+              <span class="t" data-lang="en">View Pricing</span>
+              <span class="t" data-lang="ts">Vona Tihakelo</span>
+            </a>
+            <a class="btn btn-outline" href="#services">
+              <span class="t" data-lang="en">See Services</span>
+              <span class="t" data-lang="ts">Vona Vukorhokeri</span>
+            </a>
           </div>
 
           <div class="trust">
-            <span class="chip">✅ Payment tracking</span>
-            <span class="chip">🧾 Receipts</span>
-            <span class="chip">📄 Monthly & yearly reports</span>
-            <span class="chip">🔒 Secure records</span>
+            <span class="chip">
+              <span class="t" data-lang="en">✅ Payment tracking</span>
+              <span class="t" data-lang="ts">✅ Ku landzelela ku hakela</span>
+            </span>
+            <span class="chip">
+              <span class="t" data-lang="en">🧾 Receipts</span>
+              <span class="t" data-lang="ts">🧾 Tirhasiti</span>
+            </span>
+            <span class="chip">
+              <span class="t" data-lang="en">📄 Monthly & yearly reports</span>
+              <span class="t" data-lang="ts">📄 Swiviko swa n’hweti & lembe</span>
+            </span>
+            <span class="chip">
+              <span class="t" data-lang="en">🔒 Secure records</span>
+              <span class="t" data-lang="ts">🔒 Tibuku to hlayiseka</span>
+            </span>
           </div>
 
           <p class="muted" style="margin:12px 0 0; font-size:12px;">
-            Based in Welverdiend Bushbuckridge • Support across South Africa (remote available)
+            <span class="t" data-lang="en">Based in Welverdiend Bushbuckridge • Support across South Africa (remote available)</span>
+            <span class="t" data-lang="ts">Hi le Welverdiend Bushbuckridge • Ku pfuna eAfrika-Dzonga hinkwaro (nseketelo wa le kule wa kumeka)</span>
           </p>
         </div>
 
         <aside class="card hero-card">
-          <h3>What you get</h3>
-          <p class="mini">A clean system that makes committee work easier.</p>
+          <h3>
+            <span class="t" data-lang="en">What you get</span>
+            <span class="t" data-lang="ts">Leswi u swi kumaka</span>
+          </h3>
+          <p class="mini">
+            <span class="t" data-lang="en">A clean system that makes committee work easier.</span>
+            <span class="t" data-lang="ts">Sisiteme leyi baseke leyi endla ntirho wa komiti wu olova.</span>
+          </p>
 
           <div class="stat">
             <div class="badge-ico" aria-hidden="true">
-              <!-- ledger icon -->
               <svg class="svg" viewBox="0 0 24 24" fill="none">
                 <path d="M7 4h10a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3Z" stroke="rgba(255,255,255,.85)" stroke-width="1.6"/>
                 <path d="M8 8h8M8 12h8M8 16h6" stroke="rgba(255,255,255,.65)" stroke-width="1.6" stroke-linecap="round"/>
               </svg>
             </div>
             <div>
-              <h4>Clear member records</h4>
-              <p>Track members, contributions, balances, and notes.</p>
+              <h4>
+                <span class="t" data-lang="en">Clear member records</span>
+                <span class="t" data-lang="ts">Tirekhodo to hlawuleka ta swirho</span>
+              </h4>
+              <p>
+                <span class="t" data-lang="en">Track members, contributions, balances, and notes.</span>
+                <span class="t" data-lang="ts">Landzelela swirho, minhlengo, mabalanse na tinotsi.</span>
+              </p>
             </div>
           </div>
 
           <div class="stat">
             <div class="badge-ico" aria-hidden="true">
-              <!-- report icon -->
               <svg class="svg" viewBox="0 0 24 24" fill="none">
                 <path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z" stroke="rgba(255,255,255,.85)" stroke-width="1.6"/>
                 <path d="M14 3v3h3" stroke="rgba(255,255,255,.65)" stroke-width="1.6"/>
@@ -446,27 +616,39 @@
               </svg>
             </div>
             <div>
-              <h4>Monthly report summary</h4>
-              <p>Paid/not paid, totals collected, outstanding amounts.</p>
+              <h4>
+                <span class="t" data-lang="en">Monthly report summary</span>
+                <span class="t" data-lang="ts">Xiviko xa n’hweti</span>
+              </h4>
+              <p>
+                <span class="t" data-lang="en">Paid/not paid, totals collected, outstanding amounts.</span>
+                <span class="t" data-lang="ts">Hakeke/abstaining, ntsengo hinkwawo, leswi ha ha nga hakeriwangiki.</span>
+              </p>
             </div>
           </div>
 
           <div class="stat">
             <div class="badge-ico" aria-hidden="true">
-              <!-- receipt icon -->
               <svg class="svg" viewBox="0 0 24 24" fill="none">
                 <path d="M7 3h10v18l-2-1-2 1-2-1-2 1-2-1-2 1V3Z" stroke="rgba(255,255,255,.85)" stroke-width="1.6" stroke-linejoin="round"/>
                 <path d="M9 8h6M9 12h6M9 16h4" stroke="rgba(255,255,255,.65)" stroke-width="1.6" stroke-linecap="round"/>
               </svg>
             </div>
             <div>
-              <h4>Receipts & proof</h4>
-              <p>Issue simple receipts members can keep for records.</p>
+              <h4>
+                <span class="t" data-lang="en">Receipts & proof</span>
+                <span class="t" data-lang="ts">Tirhasiti & vumbhoni</span>
+              </h4>
+              <p>
+                <span class="t" data-lang="en">Issue simple receipts members can keep for records.</span>
+                <span class="t" data-lang="ts">Humesa tirhasiti leti olovaka leswaku swirho swi ti hlayisa.</span>
+              </p>
             </div>
           </div>
 
           <div class="muted" style="margin-top:12px; font-size:12px;">
-            Note: This site advertises services only and does not collect payments online.
+            <span class="t" data-lang="en">Note: This site advertises services only and does not collect payments online.</span>
+            <span class="t" data-lang="ts">Xitsundzuxo: Website leyi i ya ku tivisa vukorhokeri ntsena naswona a yi amukeli mali online.</span>
           </div>
         </aside>
       </div>
@@ -476,14 +658,19 @@
     <section id="services">
       <div class="container">
         <div class="section-title">
-          <h2>Services</h2>
-          <p>Everything you need for smooth community group management</p>
+          <h2>
+            <span class="t" data-lang="en">Services</span>
+            <span class="t" data-lang="ts">Vukorhokeri</span>
+          </h2>
+          <p>
+            <span class="t" data-lang="en">Everything you need for smooth community group management</span>
+            <span class="t" data-lang="ts">Hinkwaswo leswi u swi lavaka leswaku ntlawa wu famba kahle</span>
+          </p>
         </div>
 
         <div class="grid-3">
           <div class="card feature">
             <div class="iconbox" aria-hidden="true">
-              <!-- Stockvel icon: coin + people -->
               <svg class="svg" viewBox="0 0 24 24" fill="none">
                 <path d="M9 14a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z" stroke="rgba(255,255,255,.85)" stroke-width="1.6"/>
                 <path d="M15 14a3 3 0 1 0-3-3 3 3 0 0 0 3 3Z" stroke="rgba(255,255,255,.65)" stroke-width="1.6"/>
@@ -491,31 +678,47 @@
                 <path d="M10 21a5 5 0 0 1 10 0" stroke="rgba(255,255,255,.65)" stroke-width="1.6" stroke-linecap="round"/>
               </svg>
             </div>
-            <h3>Contribution recording</h3>
-            <p>Capture monthly payments, dates, amounts, and member details in a clean system.</p>
+            <h3>
+              <span class="t" data-lang="en">Contribution recording</span>
+              <span class="t" data-lang="ts">Ku tsala minhlengo</span>
+            </h3>
+            <p>
+              <span class="t" data-lang="en">Capture monthly payments, dates, amounts, and member details in a clean system.</span>
+              <span class="t" data-lang="ts">Hlayisa ku hakela ka n’hweti, masiku, timali, na vuxokoxoko bya swirho hi ndlela leyi baseke.</span>
+            </p>
           </div>
 
           <div class="card feature">
             <div class="iconbox" aria-hidden="true">
-              <!-- check icon -->
               <svg class="svg" viewBox="0 0 24 24" fill="none">
                 <path d="M20 6 9 17l-5-5" stroke="rgba(25,195,125,.95)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <h3>Paid / Not paid tracking</h3>
-            <p>Instant view of who paid this month, who is behind, and what is outstanding.</p>
+            <h3>
+              <span class="t" data-lang="en">Paid / Not paid tracking</span>
+              <span class="t" data-lang="ts">Ku landzelela: Hakeke / A nga hakeri</span>
+            </h3>
+            <p>
+              <span class="t" data-lang="en">Instant view of who paid this month, who is behind, and what is outstanding.</span>
+              <span class="t" data-lang="ts">Vona hi ku hatlisa leswaku i mani a hakeke n’hweti leyi, i mani a saleke, na leswi a ha faneleke ku hakela.</span>
+            </p>
           </div>
 
           <div class="card feature">
             <div class="iconbox" aria-hidden="true">
-              <!-- funeral assist icon: shield/heart -->
               <svg class="svg" viewBox="0 0 24 24" fill="none">
                 <path d="M12 22s8-4 8-10V6l-8-3-8 3v6c0 6 8 10 8 10Z" stroke="rgba(43,124,255,.95)" stroke-width="1.6" stroke-linejoin="round"/>
                 <path d="M12 16s-3-2-3-4a2 2 0 0 1 3-1 2 2 0 0 1 3 1c0 2-3 4-3 4Z" fill="rgba(43,124,255,.25)" stroke="rgba(255,255,255,.65)" stroke-width="1.2"/>
               </svg>
             </div>
-            <h3>Reports & summaries</h3>
-            <p>Monthly and yearly reports for committee meetings and member transparency.</p>
+            <h3>
+              <span class="t" data-lang="en">Reports & summaries</span>
+              <span class="t" data-lang="ts">Swiviko & swifinyelelo</span>
+            </h3>
+            <p>
+              <span class="t" data-lang="en">Monthly and yearly reports for committee meetings and member transparency.</span>
+              <span class="t" data-lang="ts">Swiviko swa n’hweti na swa lembe eka minhlangano ya komiti na ku vonakala eka swirho.</span>
+            </p>
           </div>
         </div>
       </div>
@@ -525,33 +728,51 @@
     <section id="how">
       <div class="container">
         <div class="section-title">
-          <h2>How it works</h2>
-          <p>Simple process from setup to monthly reporting</p>
+          <h2>
+            <span class="t" data-lang="en">How it works</span>
+            <span class="t" data-lang="ts">Ndlela leyi swi tirhaka ha yona</span>
+          </h2>
+          <p>
+            <span class="t" data-lang="en">Simple process from setup to monthly reporting</span>
+            <span class="t" data-lang="ts">Ndlela yo olova ku suka eka ku sungula ku ya eka swiviko swa n’hweti</span>
+          </p>
         </div>
 
         <div class="grid-3">
           <div class="card feature">
-            <div class="iconbox" aria-hidden="true">
-              <span style="font-weight:900;">1</span>
-            </div>
-            <h3>Register the group</h3>
-            <p>We capture member list, contribution amount, rules, and reporting needs.</p>
+            <div class="iconbox" aria-hidden="true"><span style="font-weight:900;">1</span></div>
+            <h3>
+              <span class="t" data-lang="en">Register the group</span>
+              <span class="t" data-lang="ts">Tsarisa ntlawa</span>
+            </h3>
+            <p>
+              <span class="t" data-lang="en">We capture member list, contribution amount, rules, and reporting needs.</span>
+              <span class="t" data-lang="ts">Hi tsala nxaxamelo wa swirho, mali ya n’hweti, milawu, na leswi mi lavaka swiviko ha swona.</span>
+            </p>
           </div>
 
           <div class="card feature">
-            <div class="iconbox" aria-hidden="true">
-              <span style="font-weight:900; color: rgba(25,195,125,.95)">2</span>
-            </div>
-            <h3>Record payments monthly</h3>
-            <p>Update who paid, dates, amounts, and notes. Receipts available on request.</p>
+            <div class="iconbox" aria-hidden="true"><span style="font-weight:900; color: rgba(25,195,125,.95)">2</span></div>
+            <h3>
+              <span class="t" data-lang="en">Record payments monthly</span>
+              <span class="t" data-lang="ts">Tsala ku hakela ka n’hweti</span>
+            </h3>
+            <p>
+              <span class="t" data-lang="en">Update who paid, dates, amounts, and notes. Receipts available on request.</span>
+              <span class="t" data-lang="ts">Hlayisa loyi a hakeke, masiku, timali, na tinotsi. Tirhasiti ti kumeka loko mi kombela.</span>
+            </p>
           </div>
 
           <div class="card feature">
-            <div class="iconbox" aria-hidden="true">
-              <span style="font-weight:900; color: rgba(255,255,255,.85)">3</span>
-            </div>
-            <h3>Send reports</h3>
-            <p>Monthly paid/not paid report, totals collected, outstanding amounts, and year-end summary.</p>
+            <div class="iconbox" aria-hidden="true"><span style="font-weight:900; color: rgba(255,255,255,.85)">3</span></div>
+            <h3>
+              <span class="t" data-lang="en">Send reports</span>
+              <span class="t" data-lang="ts">Rhumela swiviko</span>
+            </h3>
+            <p>
+              <span class="t" data-lang="en">Monthly paid/not paid report, totals collected, outstanding amounts, and year-end summary.</span>
+              <span class="t" data-lang="ts">Xiviko xa n’hweti xa hakeke/a nga hakeri, mali hinkwayo leyi hlengeletiweke, na leswi ha ha nga hakeriwangiki, na xiviko xa lembe.</span>
+            </p>
           </div>
         </div>
       </div>
@@ -561,59 +782,93 @@
     <section id="pricing">
       <div class="container">
         <div class="section-title">
-          <h2>Pricing</h2>
-          <p>Choose a plan that fits your group size</p>
+          <h2>
+            <span class="t" data-lang="en">Pricing</span>
+            <span class="t" data-lang="ts">Tihakelo</span>
+          </h2>
+          <p>
+            <span class="t" data-lang="en">Choose a plan that fits your group size</span>
+            <span class="t" data-lang="ts">Khetha pulani leyi ringanaka ni sayizi ya ntlawa wa n’wina</span>
+          </p>
         </div>
 
         <div class="pricing">
           <div class="card price">
-            <span class="tag">Starter</span>
+            <span class="tag">
+              <span class="t" data-lang="en">Starter</span>
+              <span class="t" data-lang="ts">Ku sungula</span>
+            </span>
             <div class="amount">R150</div>
-            <p class="per">per month • small groups</p>
+            <p class="per">
+              <span class="t" data-lang="en">per month • small groups</span>
+              <span class="t" data-lang="ts">hi n’hweti • mintlawa leyitsongo</span>
+            </p>
             <ul>
-              <li>Up to 30 members</li>
-              <li>Monthly tracking</li>
-              <li>Basic monthly report</li>
-              <li>WhatsApp support</li>
+              <li><span class="t" data-lang="en">Up to 30 members</span><span class="t" data-lang="ts">Ku fika eka swirho swa 30</span></li>
+              <li><span class="t" data-lang="en">Monthly tracking</span><span class="t" data-lang="ts">Ku landzelela ka n’hweti</span></li>
+              <li><span class="t" data-lang="en">Basic monthly report</span><span class="t" data-lang="ts">Xiviko xa n’hweti xa nkoka</span></li>
+              <li><span class="t" data-lang="en">WhatsApp support</span><span class="t" data-lang="ts">Nseketelo wa WhatsApp</span></li>
             </ul>
             <div style="margin-top:14px;">
-              <a class="btn btn-outline" href="#contact">Choose Starter</a>
+              <a class="btn btn-outline" href="#contact">
+                <span class="t" data-lang="en">Choose Starter</span>
+                <span class="t" data-lang="ts">Khetha Ku sungula</span>
+              </a>
             </div>
           </div>
 
           <div class="card price highlight">
-            <span class="tag">Popular</span>
+            <span class="tag">
+              <span class="t" data-lang="en">Popular</span>
+              <span class="t" data-lang="ts">Leyi rhandziwaka</span>
+            </span>
             <div class="amount">R250</div>
-            <p class="per">per month • growing groups</p>
+            <p class="per">
+              <span class="t" data-lang="en">per month • growing groups</span>
+              <span class="t" data-lang="ts">hi n’hweti • mintlawa leyi kulaka</span>
+            </p>
             <ul>
-              <li>Up to 80 members</li>
-              <li>Receipts on request</li>
-              <li>Detailed monthly report</li>
-              <li>Quarterly summary</li>
+              <li><span class="t" data-lang="en">Up to 80 members</span><span class="t" data-lang="ts">Ku fika eka swirho swa 80</span></li>
+              <li><span class="t" data-lang="en">Receipts on request</span><span class="t" data-lang="ts">Tirhasiti loko mi kombela</span></li>
+              <li><span class="t" data-lang="en">Detailed monthly report</span><span class="t" data-lang="ts">Xiviko xa n’hweti lexi enteke</span></li>
+              <li><span class="t" data-lang="en">Quarterly summary</span><span class="t" data-lang="ts">Xifinyelelo xa kotara</span></li>
             </ul>
             <div style="margin-top:14px;">
-              <a class="btn btn-primary" href="#contact">Choose Popular</a>
+              <a class="btn btn-primary" href="#contact">
+                <span class="t" data-lang="en">Choose Popular</span>
+                <span class="t" data-lang="ts">Khetha Leyi rhandziwaka</span>
+              </a>
             </div>
           </div>
 
           <div class="card price">
-            <span class="tag">Large Groups</span>
+            <span class="tag">
+              <span class="t" data-lang="en">Large Groups</span>
+              <span class="t" data-lang="ts">Mintlawa leyikulu</span>
+            </span>
             <div class="amount">R350</div>
-            <p class="per">per month • 80+ members</p>
+            <p class="per">
+              <span class="t" data-lang="en">per month • 80+ members</span>
+              <span class="t" data-lang="ts">hi n’hweti • 80+ swirho</span>
+            </p>
             <ul>
-              <li>80+ members</li>
-              <li>Year-end reports</li>
-              <li>Dedicated support</li>
-              <li>Custom rules/fields</li>
+              <li><span class="t" data-lang="en">80+ members</span><span class="t" data-lang="ts">80+ swirho</span></li>
+              <li><span class="t" data-lang="en">Year-end reports</span><span class="t" data-lang="ts">Swiviko swa le makumu ya lembe</span></li>
+              <li><span class="t" data-lang="en">Dedicated support</span><span class="t" data-lang="ts">Nseketelo wo hlawuleka</span></li>
+              <li><span class="t" data-lang="en">Custom rules/fields</span><span class="t" data-lang="ts">Milawu/fields leswi endliweke hi ku landza leswi mi lavaka</span></li>
             </ul>
             <div style="margin-top:14px;">
-              <a class="btn btn-outline" href="#contact">Choose Large</a>
+              <a class="btn btn-outline" href="#contact">
+                <span class="t" data-lang="en">Choose Large</span>
+                <span class="t" data-lang="ts">Khetha Mintlawa leyikulu</span>
+              </a>
             </div>
           </div>
         </div>
 
         <p class="muted" style="margin-top:10px; font-size:12px;">
-          Need something custom (e.g., multiple groups, special reporting)? Contact us for a quote.
+          <span class="t" data-lang="en">Need something custom (e.g., multiple groups, special reporting)? Contact us for a quote.</span>
+          <span class="t" data-lang="ts">Mi lava leswi endliweke hi ku landza leswi mi lavaka (mohl. mintlawa yo tlula wun’we, swiviko swo hlawuleka)? Tihlanganiseni na hina leswaku hi mi nyika quotation.</span>
         </p>
       </div>
     </section>
@@ -622,57 +877,104 @@
     <section id="contact">
       <div class="container">
         <div class="section-title">
-          <h2>Contact</h2>
-          <p>Let’s set up your group records and reporting</p>
+          <h2>
+            <span class="t" data-lang="en">Contact</span>
+            <span class="t" data-lang="ts">Ku tihlanganisa</span>
+          </h2>
+          <p>
+            <span class="t" data-lang="en">Let’s set up your group records and reporting</span>
+            <span class="t" data-lang="ts">A hi lunghiseni tirekhodo ta ntlawa wa n’wina ni swiviko</span>
+          </p>
         </div>
 
         <div class="contact">
           <div class="card">
-            <h3 style="margin:0 0 6px; font-size:16px;">Talk to us</h3>
+            <h3 style="margin:0 0 6px; font-size:16px;">
+              <span class="t" data-lang="en">Talk to us</span>
+              <span class="t" data-lang="ts">Hlanganani na hina</span>
+            </h3>
             <p class="muted" style="margin:0 0 12px; font-size:13px;">
-              Share your group name, number of members, and monthly contribution amount — we’ll respond quickly.
+              <span class="t" data-lang="en">Share your group name, number of members, and monthly contribution amount — we’ll respond quickly.</span>
+              <span class="t" data-lang="ts">Hi byela vito ra ntlawa, nhlayo ya swirho, na mali ya n’hweti — hi ta mi hlamula hi ku hatlisa.</span>
             </p>
 
             <div class="cta-row">
-              <a class="btn btn-whatsapp" href="https://wa.me/27723427049?text=Hi%20Collen%20M%2C%20We%20want%20Stockvel%2FFuneral%20group%20management%20support.%20Please%20contact%20me." target="_blank" rel="noopener">
-                WhatsApp: 072 342 7049
+              <a class="btn btn-whatsapp" id="waContact" href="#" target="_blank" rel="noopener">
+                <span class="t" data-lang="en">WhatsApp: 072 342 7049</span>
+                <span class="t" data-lang="ts">WhatsApp: 072 342 7049</span>
               </a>
               <a class="btn btn-primary" href="mailto:mkansicc@gmail.com?subject=Collen%20M%20Community%20Group%20Enquiry">
-                Email Us
+                <span class="t" data-lang="en">Email Us</span>
+                <span class="t" data-lang="ts">Rhumela Email</span>
               </a>
             </div>
 
             <ul class="list">
-              <li><strong>Service Area:</strong> South Africa (remote support available)</li>
-              <li><strong>Business:</strong> Collen M</li>
-              <li><strong>Focus:</strong> Stockvel & Funeral Assist group administration</li>
-              <li><strong>Delivery:</strong> Monthly tracking + reports + receipts (on request)</li>
+              <li>
+                <strong><span class="t" data-lang="en">Service Area:</span><span class="t" data-lang="ts">Ndhawu ya Vukorhokeri:</span></strong>
+                <span class="t" data-lang="en"> South Africa (remote support available)</span>
+                <span class="t" data-lang="ts"> Afrika-Dzonga (nseketelo wa le kule wa kumeka)</span>
+              </li>
+              <li><strong><span class="t" data-lang="en">Business:</span><span class="t" data-lang="ts">Bindzu:</span></strong> Collen M</li>
+              <li>
+                <strong><span class="t" data-lang="en">Focus:</span><span class="t" data-lang="ts">Xikongomelo:</span></strong>
+                <span class="t" data-lang="en"> Stockvel & Funeral Assist group administration</span>
+                <span class="t" data-lang="ts"> Vulawuri bya Stockvel & mintlawa ya mfungho wa xilahlɔ</span>
+              </li>
+              <li>
+                <strong><span class="t" data-lang="en">Delivery:</span><span class="t" data-lang="ts">Ku rhumeriwa:</span></strong>
+                <span class="t" data-lang="en"> Monthly tracking + reports + receipts (on request)</span>
+                <span class="t" data-lang="ts"> Ku landzelela ka n’hweti + swiviko + tirhasiti (loko mi kombela)</span>
+              </li>
             </ul>
 
             <p class="muted" style="margin:10px 0 0; font-size:12px;">
-              Note: This website advertises services only and does not collect payments online.
+              <span class="t" data-lang="en">Note: This website advertises services only and does not collect payments online.</span>
+              <span class="t" data-lang="ts">Xitsundzuxo: Website leyi i ya ku tivisa vukorhokeri ntsena naswona a yi amukeli mali online.</span>
             </p>
           </div>
 
           <div class="card">
-            <h3 style="margin:0 0 6px; font-size:16px;">Quick message template</h3>
-            <p class="muted" style="margin:0 0 12px; font-size:13px;">Copy & paste to WhatsApp:</p>
+            <h3 style="margin:0 0 6px; font-size:16px;">
+              <span class="t" data-lang="en">Quick message template</span>
+              <span class="t" data-lang="ts">Templete ya mahungu yo hatlisa</span>
+            </h3>
+            <p class="muted" style="margin:0 0 12px; font-size:13px;">
+              <span class="t" data-lang="en">Copy & paste to WhatsApp:</span>
+              <span class="t" data-lang="ts">Kopa u namata eka WhatsApp:</span>
+            </p>
 
             <div class="pill" id="template">
+              <div class="tb" data-lang="en">
 Hi Collen M,
 We are a (Stockvel/Funeral Assist) group with ___ members.
 Monthly contribution is R___.
 We want payment tracking, receipts, and monthly reports.
 Please send us pricing and steps to start.
+              </div>
+              <div class="tb" data-lang="ts">
+Hi Collen M,
+Hina hi ntlawa wa (Stockvel/Mfungho wa Xilahlo) lowu nga na swirho swa ___.
+Mali ya n’hweti i R___.
+Hi lava ku landzelela ku hakela, tirhasiti, na swiviko swa n’hweti.
+Hi kombela mi hi rhumela tihakelo na magoza yo sungula.
+              </div>
             </div>
 
             <div class="cta-row" style="margin-top:12px;">
-              <button class="btn btn-outline" type="button" id="copyBtn">Copy template</button>
-              <a class="btn btn-primary" id="openWa" target="_blank" rel="noopener">Open WhatsApp with template</a>
+              <button class="btn btn-outline" type="button" id="copyBtn">
+                <span class="t" data-lang="en">Copy template</span>
+                <span class="t" data-lang="ts">Kopa templete</span>
+              </button>
+              <a class="btn btn-primary" id="openWa" target="_blank" rel="noopener">
+                <span class="t" data-lang="en">Open WhatsApp with template</span>
+                <span class="t" data-lang="ts">Pfula WhatsApp hi templete</span>
+              </a>
             </div>
 
             <p class="muted" style="margin-top:12px; font-size:12px;">
-              Tip: Replace the blanks first, then click WhatsApp.
+              <span class="t" data-lang="en">Tip: Replace the blanks first, then click WhatsApp.</span>
+              <span class="t" data-lang="ts">Xitsundzuxo: sungula hi ku cinca swikhala, kutani u clic-a WhatsApp.</span>
             </p>
           </div>
         </div>
@@ -681,8 +983,15 @@ Please send us pricing and steps to start.
 
     <footer>
       <div class="container split">
-        <div>© <span id="y"></span> Collen M. All rights reserved.</div>
-        <div>In life to help where I can : Collen M</div>
+        <div>
+          © <span id="y"></span> Collen M.
+          <span class="t" data-lang="en">All rights reserved.</span>
+          <span class="t" data-lang="ts">Hinkwaswo timfanelo ti hlayisiwile.</span>
+        </div>
+        <div>
+          <span class="t" data-lang="en">In life to help where I can : Collen M</span>
+          <span class="t" data-lang="ts">Ndzi hanya ku pfuna laha ndzi kotaka kona : Collen M</span>
+        </div>
       </div>
     </footer>
   </main>
@@ -691,32 +1000,106 @@ Please send us pricing and steps to start.
     // Footer year
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Copy template
+    const page = document.getElementById("page");
+    const btnEn = document.getElementById("btnEn");
+    const btnTs = document.getElementById("btnTs");
     const copyBtn = document.getElementById("copyBtn");
-    const template = document.getElementById("template").innerText.trim();
+    const openWa = document.getElementById("openWa");
 
+    const waNumber = "27723427049";
+
+    function activeTemplateText(){
+      // the active block is shown via CSS (tb display)
+      const lang = document.documentElement.getAttribute("data-lang") || "en";
+      const node = document.querySelector(`#template .tb[data-lang="${lang}"]`);
+      return (node ? node.innerText : "").trim();
+    }
+
+    function setWaLinks(){
+      const lang = document.documentElement.getAttribute("data-lang") || "en";
+      const heroText =
+        lang === "ts"
+          ? "Hi Collen M, hi kombela ku tihlanganisa na wena malunghana na vulawuri bya Stockvel/Mfungho wa Xilahlo."
+          : "Hi Collen M, please contact me about Stockvel/Funeral group management.";
+
+      document.getElementById("waHero").href =
+        `https://wa.me/${waNumber}?text=${encodeURIComponent(heroText)}`;
+
+      document.getElementById("waContact").href =
+        `https://wa.me/${waNumber}?text=${encodeURIComponent(heroText)}`;
+
+      openWa.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(activeTemplateText())}`;
+    }
+
+    function switchLang(lang){
+      const current = document.documentElement.getAttribute("data-lang") || "en";
+      if(current === lang) return;
+
+      page.classList.add("is-switching");
+
+      // set language
+      document.documentElement.setAttribute("data-lang", lang);
+      document.documentElement.lang = (lang === "ts") ? "ts" : "en";
+
+      // persist
+      try{ localStorage.setItem("site_lang", lang); }catch(e){}
+
+      // update buttons state (aria)
+      btnEn.setAttribute("aria-pressed", lang === "en" ? "true" : "false");
+      btnTs.setAttribute("aria-pressed", lang === "ts" ? "true" : "false");
+
+      // update dynamic links + template WA link
+      setWaLinks();
+
+      // update copy button label after switching
+      setTimeout(() => page.classList.remove("is-switching"), 160);
+    }
+
+    btnEn.addEventListener("click", () => switchLang("en"));
+    btnTs.addEventListener("click", () => switchLang("ts"));
+
+    // Copy template
     copyBtn.addEventListener("click", async () => {
+      const template = activeTemplateText();
+      const lang = document.documentElement.getAttribute("data-lang") || "en";
+
       try{
         await navigator.clipboard.writeText(template);
-        copyBtn.textContent = "Copied ✅";
-        setTimeout(() => (copyBtn.textContent = "Copy template"), 1500);
+        copyBtn.innerHTML = (lang === "ts") ? "Ku kopiwile ✅" : "Copied ✅";
+        setTimeout(() => {
+          copyBtn.innerHTML = (lang === "ts")
+            ? '<span class="t" data-lang="en">Copy template</span><span class="t" data-lang="ts">Kopa templete</span>'
+            : '<span class="t" data-lang="en">Copy template</span><span class="t" data-lang="ts">Kopa templete</span>';
+        }, 1500);
       }catch(e){
-        // fallback
         const ta = document.createElement("textarea");
         ta.value = template;
         document.body.appendChild(ta);
         ta.select();
         document.execCommand("copy");
         document.body.removeChild(ta);
-        copyBtn.textContent = "Copied ✅";
-        setTimeout(() => (copyBtn.textContent = "Copy template"), 1500);
+        copyBtn.innerHTML = (lang === "ts") ? "Ku kopiwile ✅" : "Copied ✅";
+        setTimeout(() => {
+          copyBtn.innerHTML = '<span class="t" data-lang="en">Copy template</span><span class="t" data-lang="ts">Kopa templete</span>';
+        }, 1500);
       }
+
+      // ensure CSS shows the right span after we reset innerHTML
+      // (spans are controlled by html[data-lang])
     });
 
-    // WhatsApp template link
-    const waNumber = "27723427049"; // <-- change if needed
-    const openWa = document.getElementById("openWa");
-    openWa.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(template)}`;
+    // Load saved language
+    (function init(){
+      let saved = "en";
+      try{
+        saved = localStorage.getItem("site_lang") || "en";
+      }catch(e){}
+      document.documentElement.setAttribute("data-lang", (saved === "ts" ? "ts" : "en"));
+      document.documentElement.lang = (saved === "ts" ? "ts" : "en");
+      btnEn.setAttribute("aria-pressed", saved !== "ts" ? "true" : "false");
+      btnTs.setAttribute("aria-pressed", saved === "ts" ? "true" : "false");
+      setWaLinks();
+    })();
   </script>
 </body>
 </html>
